@@ -18,7 +18,7 @@ models_const = {
     }
 }
 
-api_chose = 'deepseek'
+api_chose = 'siliconflow'
 
 
 parser = argparse.ArgumentParser(description='Deepseek Agent')
@@ -82,6 +82,8 @@ if args.chat:
             else:
                 print("🤖:")
             for chunk in response:
+                if chunk.choices[0].delta.reasoning_content:
+                    print(chunk.choices[0].delta.reasoning_content, end="", flush=True)
                 if chunk.choices[0].delta.content is not None:
                     cont = chunk.choices[0].delta.content
                     if cont == 'data: [DONE]':
@@ -115,6 +117,8 @@ else:
         if model == 'deepseek-reasoner' and (not args.add):
             print('🤖🧐:')
         for chunk in response:
+            if chunk.choices[0].delta.reasoning_content:
+                print(chunk.choices[0].delta.reasoning_content, end="", flush=True)
             if chunk.choices[0].delta.content is not None:
                 if chunk.choices[0].delta.content == 'data: [DONE]':
                     break
