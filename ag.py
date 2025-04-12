@@ -116,7 +116,7 @@ else:
         if model == 'deepseek-reasoner' and (not args.add):
             print('🤖🧐:')
         for chunk in response:
-            if chunk.choices[0].delta.reasoning_content:
+            if model == 'deepseek-reasoner' and chunk.choices[0].delta.reasoning_content:
                 print(chunk.choices[0].delta.reasoning_content, end="", flush=True)
             if chunk.choices[0].delta.content is not None:
                 if chunk.choices[0].delta.content == 'data: [DONE]':
